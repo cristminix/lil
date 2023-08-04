@@ -1,0 +1,125 @@
+#Account related
+using_account="Using %s account"
+
+#Login Related
+you_are_loged_in="You are loged in"
+could_not_find_login_url="Could not find login url"
+checking_login_credential="Checking login  credentials..."
+sign_in_btn_found="Sign in btn found"
+you_are_not_login="You are not loged in"
+login_url="Login url: %s"
+fetching_login_page="Fetching login page"
+login_successful="Login successfull"
+login_requested_add_phone="Login requested you to add phone"
+send_pin_login_post="Sending pin login post"
+send_email_login_post="Sending email login post"
+next_post_payload="next post payload"
+enter_pin_code="Enter the 6-digit code: "
+login_requested_challenge="Login request challenge"
+please_open_device_to_get_pin_code="Please open your phone or email to get code"
+cant_continue_with_provided_passwd="Canot continue login with provided password %s"
+cant_continue_with_provided_email="Canot continue login with provided email %s"
+send_passwd_login_post="Sending password login post"
+continue_login_page="Continue login page"
+could_not_get_enterprise_login_result_key="Could not get Enterprise login resut key:%s"
+enterprise_card_login_not_passed="Enterprise card login not passed"
+enterprise_card_login_passed="Enterprise card login passed"
+could_not_get_enterprise_card_login_result="Could not get Enterprise card login result"
+could_not_get_enterprise_card_login_url="Could not get enterprise card login url"
+# Url Related
+next_url="Next url:%s"
+
+# Nd related
+form_not_found_pquery="Form %s not found by pquery"
+pquery_failed="Pquery failed %s"
+
+# Cookie Related
+could_not_load_cookie_file="Could not load cookie file %s"
+could_not_write_cookie_file="Could not write cookie file %s"
+could_not_clear_cookie_file="Could not clear cookie file %s"
+human_clear_cookies="Human is clearing cookie"
+
+# Step Related
+cant_continue_util_profile_setup_complete="Canot continue to the next step till your account profile setup complete"
+please_fix_this_problem_by_with_your_browser="Please fix this problem by log in with your browser"
+cant_continue_next_step_because_prev_errors="Cant continue next step because of previous errors"
+
+# File Related
+could_not_write_file="Could not write file %s"
+could_not_open_file="Could not open file %s"
+write_file_success="Write file %s success"
+could_not_load_json_file="Couldnt load json file:%s"
+could_not_write_json_file="Couldnt write json file:%s"
+#Paga Related
+page_name_doesnt_have_form_object="Page doesnt have form named %s"
+cant_continue_server_send_checkpoint="Cant continue login process, client receive checkpoint, please try to login with your browser"
+
+# Human Related
+human_doesnt_have_page="Human doesnt have page named %s"
+human_start_browsing="Human start browsing this url:%s"
+human_browsing_resp_code="Resp Code %s"
+
+# Form Related
+form_post_payload="Form post payload:%s"
+form_start_post="Form start post this action url:%s"
+form_post_resp_code="Resp Code %s"
+
+you_have_no_access_on_this_library_id="You have no access on this library id: \"%s\""
+make_sure_you_have_valid_library_account_setting="Please make sure you have valid library account settings"
+
+is_not_valid_email="%s is not valid Email"
+is_not_valid_password="%s is not valid Password"
+
+please_select_action="Please Select Action:"
+change_email="Change Email"
+change_password="Change Password"
+prnt="Print"
+back="Back"
+enter_your_choice="Enter your choice"
+email="Email"
+password="Password"
+enter_email="Enter email"
+enter_password_min_4_chars="Enter password (min 4 char)"
+change_library_id="Change Library ID"
+enter_library_id_min_2_chars="Enter Library ID  (min 2 chars)"
+enter_card_number_min_4_chars="Enter Card Number (min 4 char)"
+enter_pin_min_4_chars="Enter PIN (min 4 char)"
+library_id="Library ID"
+change_card_number="Change Card Number"
+card_number="Card Number"
+change_pin="Change PIN"
+pin="PIN"
+seconds="seconds"
+minutes="minutes"
+hours="hours"
+days="days"
+please_select_login_type="Please Select Login type"
+individual_account="Individual Account"
+library_account="Library Account"
+continue_using_individual_account="Continue using Individual Account"
+continue_using_library_account="Continue using Library Account"
+clear_cookies_logout="Clear Cookies (Logout)"
+account_settings="Account Settings"
+
+could_not_find_v_status_lookup="Could not find video urn parent elements %s"
+get_video_meta_from_cache="Get video meta data from cache %s"
+could_not_find_v_meta_data_nd="Could not find presentasion or stream location elements %s"
+could_not_find_video_entity_urn="Could not find video entity urn element %s"
+could_not_find_video_urn="Could not find video urn %s"
+could_not_find_toc_nd="Could not find toc element %s"
+could_not_get_restli_request_body_content="Could not get restli body request"
+could_not_fetch_course_url="Could not fetch course url %s"
+are_you_connected_to_internet="Are you connected to the internet"
+could_not_find_v_meta_data_nd_pos="Could not find presentasion or stream location elements at position"
+prx_loading_from_cache="Prx load response from cache"
+
+import_browser_cookies="Import Browser Cookies"
+continue_using_browser_cookies="Continue Using Browser Cookies"
+browser_name="Browser name"
+change_browser_name="Change browser name"
+please_select_browser="Please select browser"
+
+browser_get_error="Browser cannot do HTTP GET operation"
+
+enter_your_chioce="Enter your choice"
+already_loged_in="ALREADY LOGED IN"
