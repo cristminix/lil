@@ -240,7 +240,7 @@ def download_what(ds, api_course, course_id, fmt, transcript_lang, what):
         playlist_output_filename = f"{download_dir}/{course.slug}-{fmt}.m3u"
         pl_rel_path = os.path.relpath(playlist_output_filename, os.path.dirname(__file__))
 
-        writeFile(pl_rel_path, playlist_buffer)
+        writeFile(playlist_output_filename, playlist_buffer)
         print(f"File saved to : {pl_rel_path}")
 
 

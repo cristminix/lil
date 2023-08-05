@@ -209,3 +209,69 @@ $ ./bin/lil.py course -i 9 -sd
 
      1. What to learn next? (26 seconds)
 ```
+
+## 4. Dowloading Course Assets
+Course assets contains media course data either video or audio, transcripts or subtitle file WEB VTT , Exercise File, and Playlist M3U file.
+```
+$ ./bin/lil.py download
+```
+Default options display all saved course with available media formats and transcript languages, with information [i:course_id]
+
+```
+$ ./bin/lil.py download --id 9
+$ ./bin/lil.py download -i 9
+```
+With suplied course_id options will display course details which includes course sections and toc available media formats and transcript languages, with information  [i:course_id] [si:section_id] [ti:section_id]
+
+### 4.1 Downloading all assets
+Downloading all assets means download all media streams transcripts or subtitles and playlist for all toc in current course sections. To achive this you need to specify required options : `-i <course_id>` or `--id <course_id>`, `-f <media_format>` or `--fmt <media_format>`, `-tl <country_id>` or `--transcript-lang <country_id>` , `-w a` or `-w all` or `--what a` or `--what all` then the last option is `-run` or `--run` to run the cli download manager
+
+```
+# this commands are all equivalents
+$ ../bin/lil.py download -i 9 -f 720 -tl us -w a -run
+$ ../bin/lil.py download -i 9 -f 720 -tl us -w all -run
+$ ../bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what a --run
+$ ../bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what all --run
+```
+
+### 4.1 Download playlist only
+To download course Playlist M3U file, you just need to specify required options : `-i <course_id>` or `--id <course_id>`, `-f <media_format>` or `--fmt <media_format>`, `-w pl` or `-w playlist` or `--what pl` or `--what playlist` then the last option is `-run` or `--run` to run the cli download manager
+
+```
+# this commands are all equivalents
+$ ../bin/lil.py download -i 9 -f 720 -w pl -run
+$ ../bin/lil.py download -i 9 -f 720 -w playlist -run
+$ ../bin/lil.py download --id 9 --fmt 720 --what pl --run
+$ ../bin/lil.py download --id 9 --fmt 720 --what playlist --run
+Download manager is running
+playlist
+Selected fmt: 720
+Selected transcript lang: None
+[LOG]available fmt:[360,540,720]
+[LOG]Checking available fmt
+[LOG]fmt : 720 is Ok
+Download playlist
+[LOG]Write file storage/downloads/learning-next-js/learning-next-js-720.m3u success
+File saved to : ../storage/downloads/learning-next-js/learning-next-js-720.m3u
+```
+
+### 4.1 Download transcripts or subtitles only
+To download course transcript or subtitle WEB VTT file, you just need to specify required options : `-i <course_id>` or `--id <course_id>`, `-f <media_format>` or `--fmt <media_format>`, `-tl <country_id>` or `--transcript-lang <country_id>` ,`-w t` or `-w transcript` or `--what t` or `--what transcript` then the last option is `-run` or `--run` to run the cli download manager
+
+```
+# this commands are all equivalents
+$ ../bin/lil.py download -i 9 -f 720 -tl us -w t -run
+$ ../bin/lil.py download -i 9 -f 720 -tl us -w transcript -run
+$ ../bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what t --run
+$ ../bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what transcript --run
+Download manager is running
+playlist
+Selected fmt: 720
+Selected transcript lang: None
+[LOG]available fmt:[360,540,720]
+[LOG]Checking available fmt
+[LOG]fmt : 720 is Ok
+Download playlist
+[LOG]Write file storage/downloads/learning-next-js/learning-next-js-720.m3u success
+File saved to : ../storage/downloads/learning-next-js/learning-next-js-720.m3u
+```
