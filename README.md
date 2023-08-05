@@ -228,10 +228,10 @@ Downloading all assets means download all media streams transcripts or subtitles
 
 ```
 # this commands are all equivalents
-$ ../bin/lil.py download -i 9 -f 720 -tl us -w a -run
-$ ../bin/lil.py download -i 9 -f 720 -tl us -w all -run
-$ ../bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what a --run
-$ ../bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what all --run
+$ ./bin/lil.py download -i 9 -f 720 -tl us -w a -run
+$ ./bin/lil.py download -i 9 -f 720 -tl us -w all -run
+$ ./bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what a --run
+$ ./bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what all --run
 ```
 
 ### 4.2 Download playlist only
@@ -239,10 +239,10 @@ To download course Playlist M3U file, you just need to specify required options 
 
 ```
 # this commands are all equivalents
-$ ../bin/lil.py download -i 9 -f 720 -w pl -run
-$ ../bin/lil.py download -i 9 -f 720 -w playlist -run
-$ ../bin/lil.py download --id 9 --fmt 720 --what pl --run
-$ ../bin/lil.py download --id 9 --fmt 720 --what playlist --run
+$ ./bin/lil.py download -i 9 -f 720 -w pl -run
+$ ./bin/lil.py download -i 9 -f 720 -w playlist -run
+$ ./bin/lil.py download --id 9 --fmt 720 --what pl --run
+$ ./bin/lil.py download --id 9 --fmt 720 --what playlist --run
 Download manager is running
 playlist
 Selected fmt: 720
@@ -260,10 +260,10 @@ To download course transcript or subtitle WEB VTT file, you just need to specify
 
 ```
 # this commands are all equivalents
-$ ../bin/lil.py download -i 9 -f 720 -tl us -w t -run
-$ ../bin/lil.py download -i 9 -f 720 -tl us -w transcript -run
-$ ../bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what t --run
-$ ../bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what transcript --run
+$ ./bin/lil.py download -i 9 -f 720 -tl us -w t -run
+$ ./bin/lil.py download -i 9 -f 720 -tl us -w transcript -run
+$ ./bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what t --run
+$ ./bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what transcript --run
 Download manager is running
 transcript
 Selected fmt: 720
@@ -282,6 +282,8 @@ Downloading:lil/storage/downloads/learning-next-js/speeding-up-your-workflow-wit
 To download course media file, you just need to specify required options : `-i <course_id>` or `--id <course_id>`, `-f <media_format>` or `--fmt <media_format>`,`-w m` or `-w media` or `--what m` or `--what media` then the last option is `-run` or `--run` to run the cli download manager
 
 ```
+# this commands are all equivalents
+$ ./bin/lil.py download -i 9 -f 720 -tl us -w m --run
 $ ./bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what media --run
 Download manager is running
 media
@@ -293,4 +295,19 @@ Selected transcript lang: us
 Download media
 Downloading:lil/storage/downloads/learning-next-js/speeding-up-your-workflow-with-next-js-720.mp4
 url:https://www.linkedin.com/dms/prv/vid/C4E0DAQEy1ZQPqq-arw/learning-original-video-vbr-720/0/1660679415193?ea=95231473&ua=153712024&e=1691310545&v=beta&t=PzPCximO_GvzOqmY-iGd7MYvWSbI9oDs-tQHoM-LDn0
+```
+
+### 4.4 Download exercise file only
+To download exercise file, you just need to specify required options : `-i <course_id>` or `--id <course_id>`, `-w ex` or `-w exercise` or `--what ex` or `--what exercise` then the last option is `-run` or `--run` to run the cli download manager
+
+```
+# this commands are all equivalents
+./bin/lil.py download --id 9 -w ex --run
+./bin/lil.py download --id 9 --what exercise --run
+Download manager is running
+Download exercise_file
+Downloading:lil/storage/downloads/learning-next-js/Ex_Files_Learning_Nextjs.zip
+url:https://www.linkedin.com/ambry/?x-li-ambry-ep=AQLna5qRecM7PgAAAYnE0F85wx_MKeyggHMSEVF2qzO_qUEYgVP2syEPuYPC_BxHORA56CGQfR29uZ8oJzdE--_PgIKjxMA82zE52idVlGM5huSRqxYmv4ne2izAzRlpdhaXJcUqOG_UUfzqL3FFd0ZkMo_jKJ2Gvpp4vmDSMD5gagFhZK9DuwE0X54_lkjA_F-qHWFgdsRBOJ5W3ggs_Iu031nnkFCzZB_xu_sQK5zzaSa3c1pa191IUjYtKQZ_mF1ikCCEP4wofP5H8YxrO1mGBcpRao_uq4SN4f7XxUewHhkNtZL3yJDDrddmhX1YX3UKMfen-arC_OFwg2dkvPOnZnWp9J1wp3gnWJWhKI5InEfOq3-3vpROCUzNtbhNqzlpJk5v9O79LARsst3sS1AZNsUsGMq5VlFz79Vym1CQBTy7huwEFt-ZjpnH0waaKm94NP8ak9nYpUMR1gRYtCtmMq5KvT3kFf0FghCjYz5kdwTwJhPLaZv9picDho-RMpj7YHZF2GWQzPy6NOfTCJw8zeNEimABisJnWZM_XPqdu6cGeVHHlwZrvy40nWvXbaFWpwFpLXtcm5RNKBEF
+downloading 7.20 MB
+....
 ```

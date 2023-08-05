@@ -52,6 +52,7 @@ def download_what(ds, api_course, course_id, fmt, transcript_lang, what):
     if not course:
         errors(f"Course with id: {course_id} not found", exit_progs=True)
     
+    download_dir=getDownloadDir(course.slug)
 
     if 'exercise_file' in what_to_downloads:
         exercise_file = ds.m_exercise_file.getByCourseId(course_id)
@@ -116,7 +117,6 @@ def download_what(ds, api_course, course_id, fmt, transcript_lang, what):
     download_transcripts= 'transcript' in what_to_downloads
     download_media = 'media' in what_to_downloads
     download_playlist = 'playlist' in what_to_downloads
-    download_dir=getDownloadDir(course.slug)
     
     playlist_buffer = ""
     if download_playlist:

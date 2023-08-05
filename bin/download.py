@@ -68,7 +68,8 @@ def download(args):
             if not stream_to_pipe:
                 print("Download transcripts only.")
         if not fmt:
-            errors("You must specify -f|--fmt, example -f 720", exit_progs=True)
+            if not what:
+                errors("You must specify -f|--fmt, example -f 720", exit_progs=True)
         if not what:
             if download_mode == "course_mode":
                 pass
@@ -79,12 +80,12 @@ def download(args):
             if download_mode == "course_mode":
                 pass
         else:
-            print(f"{what}")
+            # print(f"{what}")
             if not course_id:
                 errors(f"you must specify course id -i|--id",exit_progs=True)
-            if not fmt:
-                errors("You must specify -f|--fmt, example -f 720", exit_progs=True)
-            # if what == "pl" or what == 'playlist':
+            # if not fmt:
+            #     errors("You must specify -f|--fmt, example -f 720", exit_progs=True)
+            # # if what == "pl" or what == 'playlist':
 
             download_what(ds, api_course, course_id, fmt, transcript_lang, what)
             # pass
