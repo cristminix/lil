@@ -7,6 +7,8 @@ lil stand for Linkedin Learning CLI, linkedin learning course assets downloader 
 # Tested and ready for
 - `Mac Osx intel 10.13.6 +`
 
+For another platform you can try to adopting by using python3 use conventions.
+
 # How to use it
 ## Preparation 
 ```
@@ -59,4 +61,19 @@ Please Select Login type:
 3: Import Browser Cookies
 0: Back
 ```
+**Description**
+1. Individual Account
+    - You need to provide `email` and valid `password` 
+```
+Please Select Action:
+1: Change Email
+2: Change Password
+p: Print
+0: Back
+```
+
+2. Library Account
+    - You need to provide `library id`, `card number` and `pin`
+3. Import Browser Cookies
+    - You need to define the browser name you are currently loged in the linkedin learning website 
 
