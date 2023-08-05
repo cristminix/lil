@@ -265,13 +265,15 @@ $ ../bin/lil.py download -i 9 -f 720 -tl us -w transcript -run
 $ ../bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what t --run
 $ ../bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what transcript --run
 Download manager is running
-playlist
+transcript
 Selected fmt: 720
-Selected transcript lang: None
+Selected transcript lang: us
 [LOG]available fmt:[360,540,720]
 [LOG]Checking available fmt
 [LOG]fmt : 720 is Ok
-Download playlist
-[LOG]Write file storage/downloads/learning-next-js/learning-next-js-720.m3u success
-File saved to : ../storage/downloads/learning-next-js/learning-next-js-720.m3u
+Download transcript
+[LOG]available transcript lang:[ae,br,cn,cz,de,dk,es,fr,id,in,it,jp,kr,my,nl,no,ph,pl,ro,se,th,tr,tw,ua,us]
+[LOG]transcript lang : us is Ok
+Downloading:lil/storage/downloads/learning-next-js/speeding-up-your-workflow-with-next-js-720.vtt
+...
 ```
