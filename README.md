@@ -234,7 +234,7 @@ $ ../bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what a --run
 $ ../bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what all --run
 ```
 
-### 4.1 Download playlist only
+### 4.2 Download playlist only
 To download course Playlist M3U file, you just need to specify required options : `-i <course_id>` or `--id <course_id>`, `-f <media_format>` or `--fmt <media_format>`, `-w pl` or `-w playlist` or `--what pl` or `--what playlist` then the last option is `-run` or `--run` to run the cli download manager
 
 ```
@@ -255,7 +255,7 @@ Download playlist
 File saved to : ../storage/downloads/learning-next-js/learning-next-js-720.m3u
 ```
 
-### 4.1 Download transcripts or subtitles only
+### 4.3 Download transcripts or subtitles only
 To download course transcript or subtitle WEB VTT file, you just need to specify required options : `-i <course_id>` or `--id <course_id>`, `-f <media_format>` or `--fmt <media_format>`, `-tl <country_id>` or `--transcript-lang <country_id>` ,`-w t` or `-w transcript` or `--what t` or `--what transcript` then the last option is `-run` or `--run` to run the cli download manager
 
 ```
@@ -275,5 +275,22 @@ Download transcript
 [LOG]available transcript lang:[ae,br,cn,cz,de,dk,es,fr,id,in,it,jp,kr,my,nl,no,ph,pl,ro,se,th,tr,tw,ua,us]
 [LOG]transcript lang : us is Ok
 Downloading:lil/storage/downloads/learning-next-js/speeding-up-your-workflow-with-next-js-720.vtt
-...
+```
+
+
+### 4.4 Download media only
+To download course media file, you just need to specify required options : `-i <course_id>` or `--id <course_id>`, `-f <media_format>` or `--fmt <media_format>`,`-w m` or `-w media` or `--what m` or `--what media` then the last option is `-run` or `--run` to run the cli download manager
+
+```
+$ ./bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what media --run
+Download manager is running
+media
+Selected fmt: 720
+Selected transcript lang: us
+[LOG]available fmt:[360,540,720]
+[LOG]Checking available fmt
+[LOG]fmt : 720 is Ok
+Download media
+Downloading:lil/storage/downloads/learning-next-js/speeding-up-your-workflow-with-next-js-720.mp4
+url:https://www.linkedin.com/dms/prv/vid/C4E0DAQEy1ZQPqq-arw/learning-original-video-vbr-720/0/1660679415193?ea=95231473&ua=153712024&e=1691310545&v=beta&t=PzPCximO_GvzOqmY-iGd7MYvWSbI9oDs-tQHoM-LDn0
 ```
