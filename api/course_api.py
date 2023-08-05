@@ -157,6 +157,8 @@ class CourseApi:
                 data=parseRestLiResponse(doc)
                 self.toc_xml_doc[toc_slug]=convert2Xml(data, page_name)
                 xml_doc=self.toc_xml_doc[toc_slug]
+        else:
+            xml_doc=self.toc_xml_doc[toc_slug]
         
         return xml_doc
     def getAuthors(self, course_slug):
@@ -291,25 +293,28 @@ class CourseApi:
                     v_meta_data_nd,statuses=getVideoMetaNd(toc.v_status_urn, toc_xml_doc)
                     if v_meta_data_nd:
                         stream_locations=getStreamLocations(v_meta_data_nd, toc_xml_doc,toc,self.m_stream_location)
-                        if not stream_locations:
-                            self.m_prx.deleteByPageName(self.prx.getPageName())
-                        
-                        if inArray(429,statuses)>0 or inArray(427,statuses)>0 or len(statuses) == 0:
-                            retry_count += 1
-                            no_cache=True
-                            wait_time+=5
-                        else:
-                            ok=True
-                            wait_time=0
-                            
-                        if retry_count > 3:
-                            print(f"retry counts reached max : {retry_count}")
-                            wait_time=0
-                        break 
                     else:
                         errors(f"Could not get video metadata nd")
+                        # break
+                    if not stream_locations:
+                        self.m_prx.deleteByPageName(self.prx.getPageName())
+                        
+                    if inArray(429,statuses)>0 or inArray(427,statuses)>0 or len(statuses) == 0:
+                        retry_count += 1
+                        no_cache=True
+                        wait_time+=5
+                    else:
+                        ok=True
+                        wait_time=0
+                        
+                    if retry_count > 3:
+                        print(f"retry counts reached max : {retry_count}")
+                        wait_time=0
+                    break 
+                    
                 else:
                     errors(f"Could not get toc xml doc")
+                    break
                        
             # print(status)
         b=benchmark('ApiCourse.getStreamLocs','end')
@@ -346,25 +351,28 @@ class CourseApi:
                     v_meta_data_nd,statuses=getVideoMetaNd(toc.v_status_urn, toc_xml_doc)
                     if v_meta_data_nd:
                         transcripts=getTranscripts(v_meta_data_nd, toc_xml_doc,toc,self.m_transcript)
-                        if not transcripts:
-                            self.m_prx.deleteByPageName(self.prx.getPageName())
-                        
-                        if inArray(429,statuses)>0 or inArray(427,statuses)>0 or len(statuses) == 0:
-                            retry_count += 1
-                            no_cache=True
-                            wait_time+=5
-                        else:
-                            ok=True
-                            wait_time=0
-                            
-                        if retry_count > 3:
-                            print(f"retry counts reached max : {retry_count}")
-                            wait_time=0
-                            break 
                     else:
-                        errors(f"Could not get video metadata nd")
+                        errors(f"Could not get video metadata nd")    
+                    
+                    if not transcripts:
+                        self.m_prx.deleteByPageName(self.prx.getPageName())
+                        
+                    if inArray(429,statuses)>0 or inArray(427,statuses)>0 or len(statuses) == 0:
+                        retry_count += 1
+                        no_cache=True
+                        wait_time+=5
+                    else:
+                        ok=True
+                        wait_time=0
+                        
+                    if retry_count > 3:
+                        print(f"retry counts reached max : {retry_count}")
+                        wait_time=0
+                        break 
+                    
                 else:
                     errors(f"Could not get toc xml doc")   
+                    break
             # print(status)
         b=benchmark('ApiCourse.getTranscripts','end')
         print(f"ApiCourse.getTranscripts time elapsed:{b['elapsed_time']}\n")

@@ -132,3 +132,80 @@ Enter your choice (1,2,3,4,5,0)[2]:3
 [LOG]ALREADY LOGED IN
 ```
 On successful login you will see `ALREADY LOGED IN` output text, neither you will got `CANT LOGIN WITH THAT ACCOUNT OPTION` red errors text.
+
+## 2. Fetch the Course Page
+For fetching the course page you need a valid course url, by copyng the course url from linkedin learning website
+
+```
+$ ./bin/lil.py fetch -h
+usage: lil.py fetch [-h] url
+
+positional arguments:
+  url         Course url
+
+options:
+  -h, --help  show this help message and exit
+
+$ ./bin/lil.py fetch https://www.linkedin.com/learning/learning-next-js
+...
+[LOG]Human start browsing this url:https://www.linkedin.com/learning/learning-next-js/what-to-learn-next
+[LOG]wait for 1 seconds
+[LOG]retry count : 1
+[LOG]Human start browsing this url:https://www.linkedin.com/learning/learning-next-js/what-to-learn-next
+[LOG]Resp Code 200
+getVideoMetaNd time elapsed:0.084532 seconds
+
+ApiCourse.getStreamLocs time elapsed:3.701450 seconds
+
+Fetch stream locations [360,720,540]
+getVideoMetaNd time elapsed:0.087000 seconds
+
+ApiCourse.getTranscripts time elapsed:0.485192 seconds
+
+Fetch transcripts [us,ae,id,cn,tw,cz,dk,nl,fr,de,in,it,jp,kr,my,no,pl,br,ro,es,se,ph,th,tr,ua]
+```
+After fetching course page complete the course metadata will be stored in local database for further use.
+
+
+## 3. Displaying Saved Course
+After fetching course page complete you can now try to displaying saved course
+
+```
+$ ./bin/lil.py course
+
+List of saved courses:
+
+  1. DevOps Foundations: Lean and Agile  By Ernest Mueller,Karthik Gaekwad
+  2. Rust for JavaScript Developers  By Eve Porcello
+  3. Test Automation with Python: 1 Introduction to Automated Testing  By Headspin University
+  4. Learning GitHub Pages  By Ray Villalobos
+  5. Learning Vim  By Miki Tebeka
+  6. Learning Static Site Building with Jekyll  By Nate Barbettini
+  7. Python Essential Training  By Ryan Mitchell
+  8. Python Essential Libraries  By Joe Marini
+  9. Learning Next.js  By Sandy Ludosky
+```
+
+### 3.1 Displaying course detail
+For displaying course detail you need to specify `-i <course_id>` or `--id <course_id>` , and you can show the duration of the video toc items by adding `-sd` or `--show-duration`
+
+```
+$ ./bin/lil.py course --id 9 --show-duration
+$ ./bin/lil.py course -i 9 -sd
+
+
+ Learning Next.js
+ By Sandy Ludosky
+
+ The Next.js web development framework gives you all the benefits of a server-side rendering tool with the speed and ease of a single-page app. 
+...
+
+  Introduction
+
+     1. Speeding up your workflow with Next.js (57 seconds)
+...    
+
+  Conclusion
+
+     1. What to learn next? (26 seconds)
+```
