@@ -132,6 +132,7 @@ class CourseApi:
         return course
     
     def getCourseXmlDoc(self,course_url, no_cache=False):
+        xml_doc = self.course_xml_doc
         if not self.course_xml_doc:
             if not self.prx:
                 self.prx=Prx(m_prx=self.m_prx)
@@ -141,7 +142,23 @@ class CourseApi:
                 doc=BeautifulSoup(content,features='html.parser')
                 data=parseRestLiResponse(doc)
                 self.course_xml_doc=convert2Xml(data, page_name)
-        return self.course_xml_doc
+                xml_doc = self.course_xml_doc
+        return xml_doc
+    def getTocXmlDoc(self,toc_slug, toc_url, no_cache=False):
+        xml_doc=None
+        if not toc_slug in self.toc_xml_doc or no_cache:
+            # print(f"no_cache={no_cache}")
+            if not self.prx:
+                self.prx=Prx(m_prx=self.m_prx)
+            content=self.prx.get(toc_url, no_cache=no_cache)
+            if content:
+                page_name=self.prx.getPageName()
+                doc=BeautifulSoup(content,features='html.parser')
+                data=parseRestLiResponse(doc)
+                self.toc_xml_doc[toc_slug]=convert2Xml(data, page_name)
+                xml_doc=self.toc_xml_doc[toc_slug]
+        
+        return xml_doc
     def getAuthors(self, course_slug):
         benchmark('ApiCourse.getAuthors','start')
         sections=None
@@ -192,9 +209,15 @@ class CourseApi:
                 return sections
         course_url = courseUrl(course_slug)
         xml_doc=self.getCourseXmlDoc(course_url)
-        p,course_urn = getCourseXmlParentElement(xml_doc)
-        sections = getCourseSections(p, xml_doc, self.m_section, self.course.id)
-        self.sections = sections
+        if xml_doc:
+            p,course_urn = getCourseXmlParentElement(xml_doc)
+            if p:
+                sections = getCourseSections(p, xml_doc, self.m_section, self.course.id)
+                self.sections = sections
+            else:
+                errors(f"Could not get course xml parent element")
+        else:
+            errors(f"Could not get course xml doc")
         b=benchmark('ApiCourse.getCourseSections','end')
         print(f"ApiCourse.getCourseSections time elapsed:{b['elapsed_time']}\n")
 
@@ -216,12 +239,17 @@ class CourseApi:
                 if not tocs[section_slug] or len(tocs[section_slug])==0:
                     course_url = courseUrl(course_slug)
                     course_xml_doc=self.getCourseXmlDoc(course_url)
-                    
-                    p,course_urn = getCourseXmlParentElement(course_xml_doc)
-                    tocs[section_slug]=[]
-                    for item_star in json.loads(section.item_stars):
-                        toc = getCourseToc(item_star,course_xml_doc,self.m_toc,section.id, course_slug)
-                        tocs[section_slug].append(toc)
+                    if course_xml_doc:
+                        p,course_urn = getCourseXmlParentElement(course_xml_doc)
+                        if p:
+                            tocs[section_slug]=[]
+                            for item_star in json.loads(section.item_stars):
+                                toc = getCourseToc(item_star,course_xml_doc,self.m_toc,section.id, course_slug)
+                                tocs[section_slug].append(toc)
+                        else:
+                            errors(f"Could not get course xml parent element")
+                    else:
+                        errors(f"Could not get course xml doc")
                 else:
                     log('toc[section_slug]s_get_from_m_toc') 
             return tocs 
@@ -259,24 +287,30 @@ class CourseApi:
                 break
             else:
                 toc_xml_doc = self.getTocXmlDoc(toc.slug, toc.url,no_cache=no_cache)
-                
-                v_meta_data_nd,statuses=getVideoMetaNd(toc.v_status_urn, toc_xml_doc)
-                stream_locations=getStreamLocations(v_meta_data_nd, toc_xml_doc,toc,self.m_stream_location)
-                if not stream_locations:
-                    self.m_prx.deleteByPageName(self.prx.getPageName())
-                
-                if inArray(429,statuses)>0 or inArray(427,statuses)>0 or len(statuses) == 0:
-                    retry_count += 1
-                    no_cache=True
-                    wait_time+=5
+                if toc_xml_doc:
+                    v_meta_data_nd,statuses=getVideoMetaNd(toc.v_status_urn, toc_xml_doc)
+                    if v_meta_data_nd:
+                        stream_locations=getStreamLocations(v_meta_data_nd, toc_xml_doc,toc,self.m_stream_location)
+                        if not stream_locations:
+                            self.m_prx.deleteByPageName(self.prx.getPageName())
+                        
+                        if inArray(429,statuses)>0 or inArray(427,statuses)>0 or len(statuses) == 0:
+                            retry_count += 1
+                            no_cache=True
+                            wait_time+=5
+                        else:
+                            ok=True
+                            wait_time=0
+                            
+                        if retry_count > 3:
+                            print(f"retry counts reached max : {retry_count}")
+                            wait_time=0
+                        break 
+                    else:
+                        errors(f"Could not get video metadata nd")
                 else:
-                    ok=True
-                    wait_time=0
-                    
-                if retry_count > 3:
-                    print(f"retry counts reached max : {retry_count}")
-                    wait_time=0
-                    break    
+                    errors(f"Could not get toc xml doc")
+                       
             # print(status)
         b=benchmark('ApiCourse.getStreamLocs','end')
         print(f"ApiCourse.getStreamLocs time elapsed:{b['elapsed_time']}\n")
@@ -308,90 +342,34 @@ class CourseApi:
                 break
             else:
                 toc_xml_doc = self.getTocXmlDoc(toc.slug, toc.url,no_cache=no_cache)
-                
-                v_meta_data_nd,statuses=getVideoMetaNd(toc.v_status_urn, toc_xml_doc)
-                transcripts=getTranscripts(v_meta_data_nd, toc_xml_doc,toc,self.m_transcript)
-                if not transcripts:
-                    self.m_prx.deleteByPageName(self.prx.getPageName())
-                
-                if inArray(429,statuses)>0 or inArray(427,statuses)>0 or len(statuses) == 0:
-                    retry_count += 1
-                    no_cache=True
-                    wait_time+=5
+                if toc_xml_doc:
+                    v_meta_data_nd,statuses=getVideoMetaNd(toc.v_status_urn, toc_xml_doc)
+                    if v_meta_data_nd:
+                        transcripts=getTranscripts(v_meta_data_nd, toc_xml_doc,toc,self.m_transcript)
+                        if not transcripts:
+                            self.m_prx.deleteByPageName(self.prx.getPageName())
+                        
+                        if inArray(429,statuses)>0 or inArray(427,statuses)>0 or len(statuses) == 0:
+                            retry_count += 1
+                            no_cache=True
+                            wait_time+=5
+                        else:
+                            ok=True
+                            wait_time=0
+                            
+                        if retry_count > 3:
+                            print(f"retry counts reached max : {retry_count}")
+                            wait_time=0
+                            break 
+                    else:
+                        errors(f"Could not get video metadata nd")
                 else:
-                    ok=True
-                    wait_time=0
-                    
-                if retry_count > 3:
-                    print(f"retry counts reached max : {retry_count}")
-                    wait_time=0
-                    break    
+                    errors(f"Could not get toc xml doc")   
             # print(status)
         b=benchmark('ApiCourse.getTranscripts','end')
         print(f"ApiCourse.getTranscripts time elapsed:{b['elapsed_time']}\n")
         
         return transcripts
 
-    def getStreamLocsAndTranscripts(self, toc):
-        benchmark('ApiCourse.getStreamLocsAndTranscripts','start')
-
-        #toc.url, toc.item_star,toc.v_status_urn
-        # lst = "%s,%s,%s" % (toc.url, toc.item_star,toc.v_status_urn)
-        stream_locations=None
-        transcripts=None
-        status = 400
-        ok=False
-        no_cache=False
-        retry_count = 0
-        wait_time=0
-        while not ok:
-                
-            if retry_count > 0:
-                print(f"retry {retry_count}")
-            if wait_time>0:
-                print(f"wait for {wait_time} second")
-                time.sleep(wait_time)
-            toc_xml_doc = self.getTocXmlDoc(toc.slug, toc.url,no_cache=no_cache)
-            stream_locations, transcripts, status=getVideoMeta(toc.v_status_urn, toc_xml_doc, self.m_config)
-            print(f"status={status}")
-            if not status or status == 429 or status == 427:
-                retry_count += 1
-                no_cache=True
-                wait_time+=5
-            else:
-                ok=True
-                wait_time=0
-                if stream_locations:
-                    for fmt in stream_locations:
-                        stream_loc=stream_locations[fmt]
-                        stream_location = self.m_stream_location.create(toc.id, fmt, stream_loc["url"], stream_loc["expiresAt"])
-                        print(stream_location)
-            if retry_count > 3:
-                print(f"retry counts reached max : {retry_count}")
-                wait_time=0
-
-                break    
-            # print(status)
-        b=benchmark('ApiCourse.getStreamLocsAndTranscripts','end')
-        print(f"ApiCourse.getStreamLocsAndTranscripts time elapsed:{b['elapsed_time']}\n")
-        return [stream_locations, transcripts, status]
     
-    def getTocXmlDoc(self,toc_slug, toc_url, no_cache=False):
-        if not toc_slug in self.toc_xml_doc or no_cache:
-            # print(f"no_cache={no_cache}")
-            if not self.prx:
-                self.prx=Prx(m_prx=self.m_prx)
-            content=self.prx.get(toc_url, no_cache=no_cache)
-            if content:
-                page_name=self.prx.getPageName()
-                doc=BeautifulSoup(content,features='html.parser')
-                data=parseRestLiResponse(doc)
-                self.toc_xml_doc[toc_slug]=convert2Xml(data, page_name)
-        
-        return self.toc_xml_doc[toc_slug]
 
-    def fetchCourseUrl(self, url):
-        pass
-    
-    def fetchTocUrl(self, url):
-        pass

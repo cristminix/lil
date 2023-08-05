@@ -4,13 +4,9 @@ import os
 
 sys.path.append(os.path.realpath('%s/..' % os.path.dirname(__file__)))
 
-from robots.fn import errors, log, lang,  pq, dict2htmTable, formatBytes,RED,GREEN,BLUE,RESET,BLACK,WHITE
+from robots.fn import errors, log, lang,  formatBytes
 from robots.datasource import DataSource
-from config.cli_config import cli_config, db_path, cookie_path,browser_cache_dir,download_dir
-from api.course import CourseApi, isLinkedinLearningUrl,isTimeExpired,downloadFile,getDownloadDir
-import validators
-import re
-import time
+from config.cli_config import db_path
 
 # import math
 def cache(args):
@@ -23,5 +19,4 @@ def cache(args):
         cache_sz=formatBytes(ds.m_prx.getSize())
         print(f"Cache size: {cache_sz}")
 
-    # print(args)
     pass

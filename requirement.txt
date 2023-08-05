@@ -1,0 +1,8 @@
+pyquery                   
+requests
+SQLAlchemy
+beautifulsoup4
+xmltodict
+validators
+cryptography
+browser_cookie3

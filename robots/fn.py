@@ -82,21 +82,28 @@ def slugify(text):
     slug = slug.strip('-')
     return slug
 
-def timeAgo(seconds):
-    current_time = datetime.now()
-    time_ago = current_time - timedelta(seconds=seconds)
-
+def fmtTime(seconds):
     if seconds < 60:
         return f"{seconds} %s" % (lang('seconds'))
     elif seconds < 3600:
         minutes = seconds // 60
-        return f"{minutes} %s" % (lang('minutes'))
+        secs = seconds % 60
+        
+        return f"{minutes}.{secs} %s" % (lang('minutes'))
     elif seconds < 86400:
+        mins = seconds % 3600
         hours = seconds // 3600
-        return f"{hours} %s" % (lang('hours'))
+        return f"{hours}.{mins} %s" % (lang('hours'))
     else:
         days = seconds // 86400
         return f"{days} %s" % (lang('days'))
+
+def timeAgo(sec):
+    current_time = datetime.now()
+    seconds = current_time - timedelta(seconds=sec)
+    return fmtTime(seconds)
+    
+    
 def cleanQueryString(url):
     parsed_url = urlparse(url)
     cleaned_url = urlunparse(parsed_url._replace(query=''))
@@ -494,7 +501,7 @@ def waitForCaptcha(json_config, last_run_timeout_max=7):
     if need_to_wait:
         need_to_wait_message= "need to wait for %s second" % (sleep_timeout)
 
-    print("Last run %s ago %s" %(timeAgo(last_run_timeout), need_to_wait_message))
+    print("Last run %s ago %s" %(fmtTime(last_run_timeout), need_to_wait_message))
     
     if need_to_wait:
         print("waiting for %s second " % (sleep_timeout))

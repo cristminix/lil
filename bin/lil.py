@@ -43,6 +43,7 @@ def main():
     
     course_parser = subparsers.add_parser("course", help="List saved course")
     course_parser.add_argument("-i","--id", help="Course id")
+    course_parser.add_argument("-sd","--show-duration",  action='store_true',help="Show duration")
 
     cache_parser = subparsers.add_parser("cache", help="Cache")
     cache_parser.add_argument("-c","--clear", action='store_true', help="Clear cache")
