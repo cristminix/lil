@@ -71,14 +71,11 @@ def download(args):
             if not what:
                 errors("You must specify -f|--fmt, example -f 720", exit_progs=True)
         if not what:
-            if download_mode == "course_mode":
-                pass
             if download_mode == "section_mode":
                 download_section(ds, api_course, section_id, fmt, transcript_lang, transcript_only)
-            if download_mode == "toc_mode":
+            elif download_mode == "toc_mode":
                 download_toc(ds, api_course, toc_id, fmt, transcript_lang, transcript_only,stream_to_pipe)
-            if download_mode == "course_mode":
-                pass
+            
         else:
             # print(f"{what}")
             if not course_id:
@@ -171,11 +168,11 @@ def download(args):
         print("\n  description:\n")
         print(f"    {GREEN}si{RESET} : Section id")
         print(f"    {GREEN}ti{RESET} : Toc id\n")
-        print("\n  example:\n")
-        print("  To download all transcript only on section id 13:\n")
-        print("  ./lil.py download --section-id 13 --fmt 400  --transcript-only --transcript-lang id --run")
-        print("  ./lil.py download -si 13 -f 400  -to -tl id -run")
-        print("\n  To stream toc id 23 on a pipe and play with ffplay: \n")
-        print("  ./lil.py download --toc-id 23 --fmt 640 --stream-to-pipe -run|ffplay -i pipe:")
-        print("  ./lil.py download -ti 23 -f 640 -stp -run|ffplay -i pipe:")
-        print("\n")
+        # print("\n  example:\n")
+        # print("  To download all transcript only on section id 13:\n")
+        # print("  ./lil.py download --section-id 13 --fmt 400  --transcript-only --transcript-lang id --run")
+        # print("  ./lil.py download -si 13 -f 400  -to -tl id -run")
+        # print("\n  To stream toc id 23 on a pipe and play with ffplay: \n")
+        # print("  ./lil.py download --toc-id 23 --fmt 640 --stream-to-pipe -run|ffplay -i pipe:")
+        # print("  ./lil.py download -ti 23 -f 640 -stp -run|ffplay -i pipe:")
+        # print("\n")

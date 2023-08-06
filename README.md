@@ -53,7 +53,7 @@ Please Select Action:
 0: exit
 Enter your choice (1,2,3,4,5,0)[2]:5
 ```
-## 1.1 Configure Account Setting
+## 1.1. Configure Account Setting
 For the first time you will select the option 5
 ```
 Please Select Login type:
@@ -112,7 +112,7 @@ Please Select Login type:
 
 
 
-## 1.2 Continue login by using your previosly configured  account setting
+## 1.2. Continue login by using your previosly configured  account setting
 
 After configuring Account Settings you need to continue login using account by selecting option either `1`, `2` or `3` , for example I have choosing option `3`
 
@@ -186,7 +186,7 @@ List of saved courses:
   9. Learning Next.js  By Sandy Ludosky
 ```
 
-### 3.1 Displaying course detail
+### 3.1. Displaying course detail
 For displaying course detail you need to specify `-i <course_id>` or `--id <course_id>` , and you can show the duration of the video toc items by adding `-sd` or `--show-duration`
 
 ```
@@ -223,7 +223,7 @@ $ ./bin/lil.py download -i 9
 ```
 With suplied course_id options will display course details which includes course sections and toc available media formats and transcript languages, with information  [i:course_id] [si:section_id] [ti:section_id]
 
-### 4.1 Downloading all assets
+### 4.1. Downloading all assets in selected course
 Downloading all assets means download all media streams transcripts or subtitles and playlist for all toc in current course sections. To achive this you need to specify required options : `-i <course_id>` or `--id <course_id>`, `-f <media_format>` or `--fmt <media_format>`, `-tl <country_id>` or `--transcript-lang <country_id>` , `-w a` or `-w all` or `--what a` or `--what all` then the last option is `-run` or `--run` to run the cli download manager
 
 ```
@@ -234,7 +234,7 @@ $ ./bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what a --run
 $ ./bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what all --run
 ```
 
-### 4.2 Download playlist only
+### 4.2. Download playlist only
 To download course Playlist M3U file, you just need to specify required options : `-i <course_id>` or `--id <course_id>`, `-f <media_format>` or `--fmt <media_format>`, `-w pl` or `-w playlist` or `--what pl` or `--what playlist` then the last option is `-run` or `--run` to run the cli download manager
 
 ```
@@ -255,7 +255,7 @@ Download playlist
 File saved to : ../storage/downloads/learning-next-js/learning-next-js-720.m3u
 ```
 
-### 4.3 Download transcripts or subtitles only
+### 4.3. Download transcripts or subtitles only
 To download course transcript or subtitle WEB VTT file, you just need to specify required options : `-i <course_id>` or `--id <course_id>`, `-f <media_format>` or `--fmt <media_format>`, `-tl <country_id>` or `--transcript-lang <country_id>` ,`-w t` or `-w transcript` or `--what t` or `--what transcript` then the last option is `-run` or `--run` to run the cli download manager
 
 ```
@@ -277,8 +277,7 @@ Download transcript
 Downloading:lil/storage/downloads/learning-next-js/speeding-up-your-workflow-with-next-js-720.vtt
 ```
 
-
-### 4.4 Download media only
+### 4.4. Download media only
 To download course media file, you just need to specify required options : `-i <course_id>` or `--id <course_id>`, `-f <media_format>` or `--fmt <media_format>`,`-w m` or `-w media` or `--what m` or `--what media` then the last option is `-run` or `--run` to run the cli download manager
 
 ```
@@ -297,7 +296,7 @@ Downloading:lil/storage/downloads/learning-next-js/speeding-up-your-workflow-wit
 url:https://www.linkedin.com/dms/prv/vid/C4E0DAQEy1ZQPqq-arw/learning-original-video-vbr-720/0/1660679415193?ea=95231473&ua=153712024&e=1691310545&v=beta&t=PzPCximO_GvzOqmY-iGd7MYvWSbI9oDs-tQHoM-LDn0
 ```
 
-### 4.4 Download exercise file only
+### 4.4. Download exercise file only
 To download exercise file, you just need to specify required options : `-i <course_id>` or `--id <course_id>`, `-w ex` or `-w exercise` or `--what ex` or `--what exercise` then the last option is `-run` or `--run` to run the cli download manager
 
 ```
@@ -310,4 +309,58 @@ Downloading:lil/storage/downloads/learning-next-js/Ex_Files_Learning_Nextjs.zip
 url:https://www.linkedin.com/ambry/?x-li-ambry-ep=AQLna5qRecM7PgAAAYnE0F85wx_MKeyggHMSEVF2qzO_qUEYgVP2syEPuYPC_BxHORA56CGQfR29uZ8oJzdE--_PgIKjxMA82zE52idVlGM5huSRqxYmv4ne2izAzRlpdhaXJcUqOG_UUfzqL3FFd0ZkMo_jKJ2Gvpp4vmDSMD5gagFhZK9DuwE0X54_lkjA_F-qHWFgdsRBOJ5W3ggs_Iu031nnkFCzZB_xu_sQK5zzaSa3c1pa191IUjYtKQZ_mF1ikCCEP4wofP5H8YxrO1mGBcpRao_uq4SN4f7XxUewHhkNtZL3yJDDrddmhX1YX3UKMfen-arC_OFwg2dkvPOnZnWp9J1wp3gnWJWhKI5InEfOq3-3vpROCUzNtbhNqzlpJk5v9O79LARsst3sS1AZNsUsGMq5VlFz79Vym1CQBTy7huwEFt-ZjpnH0waaKm94NP8ak9nYpUMR1gRYtCtmMq5KvT3kFf0FghCjYz5kdwTwJhPLaZv9picDho-RMpj7YHZF2GWQzPy6NOfTCJw8zeNEimABisJnWZM_XPqdu6cGeVHHlwZrvy40nWvXbaFWpwFpLXtcm5RNKBEF
 downloading 7.20 MB
 ....
+```
+
+## 5. Downloading assets only on all item in selected course section 
+To download media and transcripts required options : `-si <section_id>` or `--section-id <section_id>`,  `-f <media_format>` or `--fmt <media_format>` , `-tl <country_id>` or `--transcript-lang <country_id>` then the last option is `-run` or `--run` to run the cli download manager
+
+
+### 5.1. Download all media and transcript in all item in selected course section 
+To download media and transcripts only on all item in selected course section just specify full option as above
+```
+# this commands are all equivalents
+./bin/lil.py download --section-id 63 --fmt 360 --transcript-lang id -run
+./bin/lil.py download -si 63 -f 360 -tl id -run
+
+```
+
+### 5.2. Download all media only in all item in selected course section 
+Just remove `-tl` or `--transcript-lang` options
+```
+# this commands are all equivalents
+./bin/lil.py download --section-id 63 --fmt 360 -run
+./bin/lil.py download -si 63 -f 360  -run
+
+```
+
+### 5.2. Download all transcript only in all item in selected course section 
+Just add `-to` or `--transcript-only` options
+
+```
+# this commands are all equivalents
+./bin/lil.py download --section-id 63 --fmt 360 --transcript-lang id --transcript-only -run
+./bin/lil.py download -si 63 -f 360 -to -run
+
+```
+
+## 6. Download media and transctipt only on selected course toc
+To download media and transcripts required options : `-ti <toc_id>` or `--toc-id <toc_id>`,  `-f <media_format>` or `--fmt <media_format>` , `-tl <country_id>` or `--transcript-lang <country_id>` then the last option is `-run` or `--run` to run the cli download manager
+```
+# media and transcript
+./bin/lil.py download --toc-id 343 --fmt 360 --transcript-lang id -run
+./bin/lil.py download -ti 343 -f 360 -tl id -run
+
+# transcript only
+./bin/lil.py download --toc-id 343 --fmt 360 --transcript-lang id --transcript-only -run
+./bin/lil.py download -ti 343 -f 360 -tl id -to -run
+```
+
+## 6.1 Stream current media on selected course toc via pipe with ffplay
+
+You can play media on selected course toc via pipe by adding `-stp` or `--stream-to-pipe`. Remember you have already installed ffplay and add it on your system PATH
+
+```
+./lil.py download --toc-id 23 --fmt 640 --stream-to-pipe -run|ffplay -i pipe:
+/lil.py download -ti 23 -f 640 -stp -run|ffplay -i pipe:
+
 ```
