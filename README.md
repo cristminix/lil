@@ -368,7 +368,7 @@ $ --stream-to-pipe -run|ffplay -i pipe:
 
 # 7. Troubleshooting
 
-Sometimes you will get and download errors `401` , and this indicate the current download url has expired, so you need to refresh all the download links by using this command `./bin/lil.py download -i <course_id> -rsl` or `./bin/lil.py download --id <course_id> --refresh-stream-location`
+Sometimes you will got download errors `401` , and this indicate the current download url has expired, so you need to refresh all the download links by using this command `./bin/lil.py download -i <course_id> -rsl` or `./bin/lil.py download --id <course_id> --refresh-stream-location`
 
 ```
 $ ./bin/liy.py download -i 1 -rsl
