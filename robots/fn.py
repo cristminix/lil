@@ -24,15 +24,18 @@ CYAN = '\033[36m'
 WHITE = '\033[37m'
 RESET = '\033[0m'
 last_line_len=0
-def formatBytes(bytes_num):
+def formatBytes(bytes_num, speed_mode=False):
     sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
+    speed_sizes = ['Bps', 'KBps', 'MBps', 'GBps', 'TBps']
     i = 0
 
     while bytes_num >= 1024 and i < len(sizes) - 1:
         bytes_num /= 1024.0
         i += 1
+    if not speed_mode:
+        return f"{bytes_num:.2f} {sizes[i]}"
+    return f"{bytes_num:.2f} {speed_sizes[i]}"
 
-    return f"{bytes_num:.2f} {sizes[i]}"
 def print_single_line(text):
     sys.stdout.write('\033[2K\033[1G')
     print(text, end='\r', flush=True)

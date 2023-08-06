@@ -43,7 +43,66 @@ def downloadPipe(url,human=None):
             # db.session.commit()
             sys.stdout.buffer.write(data)
 
+def downloadFileWithResume(url,output_filename,human=None):
+    mo_rel_path = os.path.relpath(output_filename, f"{os.path.dirname(__file__)}/../../")
+
+    print(f"Downloading:{mo_rel_path}")
+    print(f"url:{url}")
+
+    if not human:
+        human = Human(cookie_path, browser_cache_dir)
+    browser=human.getBrowser()
+    requests=browser.getSession()
+    if os.path.exists(output_filename):
+        file_size = os.path.getsize(output_filename)
+        requests.headers.update({'Range' : f"bytes={file_size}-"})
+
+    block_size = int(1024*(1024/5)) #1 Kibibyte
+    byte_written = 0
+    file_size = 0
+    start_time = time.time()
+    chunk_size = block_size # 1024  # 1KB chunk size for illustration purposes
+    downloaded_size = 0
+
+    status_code=None
+    try:
+        resp = requests.get(url, stream=True, allow_redirects=True)
+        resp.raise_for_status()
+        status_code = resp.status_code
+        if resp.status_code == 401:
+            errors(f"server send status code 401")
+        else:
+            total_size_in_bytes= int(resp.headers.get('content-length', 0))
+            file_size=total_size_in_bytes
+
+            with open(output_filename, 'ab') as file:
+                for data in resp.iter_content(block_size):
+                    byte_written = len(data)
+                    downloaded_size += byte_written
+                    elapsed_time = time.time() - start_time
+                    download_speed = byte_written / elapsed_time
+                    print_single_line(f"downloading {formatBytes(downloaded_size)}/{formatBytes(download_speed,True)}")
+                    file.write(data)
+                    start_time = time.time()
+                if 'Transfer-Encoding' in resp.headers:
+                    if resp.headers['Transfer-Encoding'] == 'chunked' and byte_written > 0:
+                        # toc.dlVideoSize = byte_written
+                        # toc.dlVideoComplete = 1
+                        # db.session.commit()
+                        file.write(data)
+
+    except Exception as e:
+        # print(f"Error occurred: {e}")
+        # print()
+        status_code = e.response.status_code
+        if status_code == 416:
+            status_code = 200
+
+    return status_code
+
 def downloadFile(url,output_filename,human=None):
+
+    return downloadFileWithResume(url,output_filename,human)
     mo_rel_path = os.path.relpath(output_filename, f"{os.path.dirname(__file__)}/../../")
 
     print(f"Downloading:{mo_rel_path}")

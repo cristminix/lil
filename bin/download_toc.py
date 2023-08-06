@@ -73,10 +73,13 @@ def download_toc(ds, api_course, toc_id, fmt, transcript_lang, transcript_only, 
             refresh_transcripts=False
             while not ok:
                 if wait_time > 0:
-                    log(f"wait for {wait_time} seconds")
+                    log(f"Wait for {wait_time} seconds")
                     time.sleep(wait_time)
                 if retry_count > 0:
-                    log(f"retry count : {retry_count}")
+                    log(f"Retry count : {retry_count}")
+                if refresh_transcripts:
+                    log(f"Refershing transcripts")
+                    transcripts = api_course.getTranscripts(toc,refresh=True)
                 
                 skip=False
                 download_dir = getDownloadDir(course.slug)
@@ -117,13 +120,13 @@ def download_toc(ds, api_course, toc_id, fmt, transcript_lang, transcript_only, 
             refresh_stream_locs=False
             while not ok:
                 if wait_time > 0:
-                    log(f"wait for {wait_time} seconds")
+                    log(f"Wait for {wait_time} seconds")
                     time.sleep(wait_time)
                 if retry_count > 0:
-                    log(f"retry count : {retry_count}")
+                    log(f"Retry count : {retry_count}")
                 
                 if refresh_stream_locs:
-                    log(f"refershing stream locs")
+                    log(f"Refershing stream locs")
                     stream_locs = api_course.getStreamLocs(toc,refresh=True)
 
                 # print(f"{stream_locs[fmt]}")
@@ -142,6 +145,7 @@ def download_toc(ds, api_course, toc_id, fmt, transcript_lang, transcript_only, 
                     if not skip:
                         url=stream_locs[fmt].url
                         status_code = downloadFile(url,media_output_filename)
+                        print(f"HTTP{status_code}")
                         if status_code != 200:
                             retry_count += 1
                             wait_time += 1

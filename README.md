@@ -11,7 +11,7 @@ For another platform you can try to adopting by using python3 use conventions.
 
 # How to use it
 ## Preparation 
-```
+```bash
 $ pwd
 /Users/bbd33/Desktop
 $ git clone https://github.com/cristminix/lil
@@ -41,7 +41,7 @@ Subcommands:
 ```
 ## 1. Login to linkedin learning website via cli
 First thing first you need to decide which login method you want to use to create a valid cookies for accessing API interface.
-```
+```bash
 $ ./bin/lil.py login
 Last run 1.646 hours ago
 Please Select Action:
@@ -55,7 +55,7 @@ Enter your choice (1,2,3,4,5,0)[2]:5
 ```
 ## 1.1. Configure Account Setting
 For the first time you will select the option 5
-```
+```bash
 Please Select Login type:
 1: Individual Account
 2: Library Account
@@ -65,7 +65,7 @@ Please Select Login type:
 **Description**
 1. Individual Account
     - You need to provide `email` and valid `password` 
-        ```
+        ```bash
         Please Select Action:
         1: Change Email
         2: Change Password
@@ -76,7 +76,7 @@ Please Select Login type:
 
 2. Library Account
     - You need to provide `library id`, `card number` and `pin`
-        ```
+        ```bash
         Please Select Action:
         1: Change Library ID
         2: Change Card Number
@@ -88,7 +88,7 @@ Please Select Login type:
     
 3. Import Browser Cookies
     - You need to define the browser name you are currently loged in the linkedin learning website 
-        ```
+        ```bash
         Please Select Action:
         1: Change browser name
         p: Print
@@ -116,7 +116,7 @@ Please Select Login type:
 
 After configuring Account Settings you need to continue login using account by selecting option either `1`, `2` or `3` , for example I have choosing option `3`
 
-```
+```bash
 Please Select Action:
 1: Continue using Individual Account
 2: Continue using Library Account
@@ -136,7 +136,7 @@ On successful login you will see `ALREADY LOGED IN` output text, neither you wil
 ## 2. Fetch the Course Page
 For fetching the course page you need a valid course url, by copyng the course url from linkedin learning website
 
-```
+```bash
 $ ./bin/lil.py fetch -h
 usage: lil.py fetch [-h] url
 
@@ -170,7 +170,7 @@ After fetching course page complete the course metadata will be stored in local 
 ## 3. Displaying Saved Course
 After fetching course page complete you can now try to displaying saved course
 
-```
+```bash
 $ ./bin/lil.py course
 
 List of saved courses:
@@ -189,7 +189,7 @@ List of saved courses:
 ### 3.1. Displaying course detail
 For displaying course detail you need to specify `-i <course_id>` or `--id <course_id>` , and you can show the duration of the video toc items by adding `-sd` or `--show-duration`
 
-```
+```bash
 $ ./bin/lil.py course --id 9 --show-duration
 $ ./bin/lil.py course -i 9 -sd
 
@@ -212,12 +212,12 @@ $ ./bin/lil.py course -i 9 -sd
 
 ## 4. Dowloading Course Assets
 Course assets contains media course data either video or audio, transcripts or subtitle file WEB VTT , Exercise File, and Playlist M3U file.
-```
+```bash
 $ ./bin/lil.py download
 ```
 Default options display all saved course with available media formats and transcript languages, with information [i:course_id]
 
-```
+```bash
 $ ./bin/lil.py download --id 9
 $ ./bin/lil.py download -i 9
 ```
@@ -226,7 +226,7 @@ With suplied course_id options will display course details which includes course
 ### 4.1. Downloading all assets in selected course
 Downloading all assets means download all media streams transcripts or subtitles and playlist for all toc in current course sections. To achive this you need to specify required options : `-i <course_id>` or `--id <course_id>`, `-f <media_format>` or `--fmt <media_format>`, `-tl <country_id>` or `--transcript-lang <country_id>` , `-w a` or `-w all` or `--what a` or `--what all` then the last option is `-run` or `--run` to run the cli download manager
 
-```
+```bash
 # this commands are all equivalents
 $ ./bin/lil.py download -i 9 -f 720 -tl us -w a -run
 $ ./bin/lil.py download -i 9 -f 720 -tl us -w all -run
@@ -237,7 +237,7 @@ $ ./bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what all --run
 ### 4.2. Download playlist only
 To download course Playlist M3U file, you just need to specify required options : `-i <course_id>` or `--id <course_id>`, `-f <media_format>` or `--fmt <media_format>`, `-w pl` or `-w playlist` or `--what pl` or `--what playlist` then the last option is `-run` or `--run` to run the cli download manager
 
-```
+```bash
 # this commands are all equivalents
 $ ./bin/lil.py download -i 9 -f 720 -w pl -run
 $ ./bin/lil.py download -i 9 -f 720 -w playlist -run
@@ -258,7 +258,7 @@ File saved to : ../storage/downloads/learning-next-js/learning-next-js-720.m3u
 ### 4.3. Download transcripts or subtitles only
 To download course transcript or subtitle WEB VTT file, you just need to specify required options : `-i <course_id>` or `--id <course_id>`, `-f <media_format>` or `--fmt <media_format>`, `-tl <country_id>` or `--transcript-lang <country_id>` ,`-w t` or `-w transcript` or `--what t` or `--what transcript` then the last option is `-run` or `--run` to run the cli download manager
 
-```
+```bash
 # this commands are all equivalents
 $ ./bin/lil.py download -i 9 -f 720 -tl us -w t -run
 $ ./bin/lil.py download -i 9 -f 720 -tl us -w transcript -run
@@ -280,7 +280,7 @@ Downloading:lil/storage/downloads/learning-next-js/speeding-up-your-workflow-wit
 ### 4.4. Download media only
 To download course media file, you just need to specify required options : `-i <course_id>` or `--id <course_id>`, `-f <media_format>` or `--fmt <media_format>`,`-w m` or `-w media` or `--what m` or `--what media` then the last option is `-run` or `--run` to run the cli download manager
 
-```
+```bash
 # this commands are all equivalents
 $ ./bin/lil.py download -i 9 -f 720 -tl us -w m --run
 $ ./bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what media --run
@@ -299,7 +299,7 @@ url:https://www.linkedin.com/dms/prv/vid/C4E0DAQEy1ZQPqq-arw/learning-original-v
 ### 4.4. Download exercise file only
 To download exercise file, you just need to specify required options : `-i <course_id>` or `--id <course_id>`, `-w ex` or `-w exercise` or `--what ex` or `--what exercise` then the last option is `-run` or `--run` to run the cli download manager
 
-```
+```bash
 # this commands are all equivalents
 $ ./bin/lil.py download --id 9 -w ex --run
 $ ./bin/lil.py download --id 9 --what exercise --run
@@ -317,7 +317,7 @@ To download media and transcripts required options : `-si <section_id>` or `--se
 
 ### 5.1. Download all media and transcript in all item in selected course section 
 To download media and transcripts only on all item in selected course section just specify full option as above
-```
+```bash
 # this commands are all equivalents
 $ ./bin/lil.py download --section-id 63 --fmt 360 --transcript-lang id -run
 $ ./bin/lil.py download -si 63 -f 360 -tl id -run
@@ -326,7 +326,7 @@ $ ./bin/lil.py download -si 63 -f 360 -tl id -run
 
 ### 5.2. Download all media only in all item in selected course section 
 Just remove `-tl` or `--transcript-lang` options
-```
+```bash
 # this commands are all equivalents
 $ ./bin/lil.py download --section-id 63 --fmt 360 -run
 $ ./bin/lil.py download -si 63 -f 360  -run
@@ -336,7 +336,7 @@ $ ./bin/lil.py download -si 63 -f 360  -run
 ### 5.2. Download all transcript only in all item in selected course section 
 Just add `-to` or `--transcript-only` options
 
-```
+```bash
 # this commands are all equivalents
 $ ./bin/lil.py download --section-id 63 --fmt 360 --transcript-lang id --transcript-only -run
 $ ./bin/lil.py download -si 63 -f 360 -to -run
@@ -345,7 +345,7 @@ $ ./bin/lil.py download -si 63 -f 360 -to -run
 
 ## 6. Download media and transctipt only on selected course toc
 To download media and transcripts required options : `-ti <toc_id>` or `--toc-id <toc_id>`,  `-f <media_format>` or `--fmt <media_format>` , `-tl <country_id>` or `--transcript-lang <country_id>` then the last option is `-run` or `--run` to run the cli download manager
-```
+```bash
 # media and transcript
 $ ./bin/lil.py download --toc-id 343 --fmt 360 --transcript-lang id -run
 $ ./bin/lil.py download -ti 343 -f 360 -tl id -run
@@ -359,7 +359,7 @@ $ ./bin/lil.py download -ti 343 -f 360 -tl id -to -run
 
 You can play media on selected course toc via pipe by adding `-stp` or `--stream-to-pipe`. Remember you have already installed ffplay and add it on your system PATH
 
-```
+```bash
 $ ./bin/lil.py download --toc-id 23 --fmt 640 
 $ --stream-to-pipe -run|ffplay -i pipe:
 ./bin/lil.py download -ti 23 -f 640 -stp -run|ffplay -i pipe:
@@ -370,7 +370,7 @@ $ --stream-to-pipe -run|ffplay -i pipe:
 
 Sometimes you will got download errors `401` , and this indicate the current download url has expired, so you need to refresh all the download links by using this command `./bin/lil.py download -i <course_id> -rsl` or `./bin/lil.py download --id <course_id> --refresh-stream-location`
 
-```
+```bash
 $ ./bin/liy.py download -i 1 -rsl
 $ ./bin/lil.py download --id 1 --refresh-stream-location
 ```
