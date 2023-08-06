@@ -301,8 +301,8 @@ To download exercise file, you just need to specify required options : `-i <cour
 
 ```
 # this commands are all equivalents
-./bin/lil.py download --id 9 -w ex --run
-./bin/lil.py download --id 9 --what exercise --run
+$ ./bin/lil.py download --id 9 -w ex --run
+$ ./bin/lil.py download --id 9 --what exercise --run
 Download manager is running
 Download exercise_file
 Downloading:lil/storage/downloads/learning-next-js/Ex_Files_Learning_Nextjs.zip
@@ -319,8 +319,8 @@ To download media and transcripts required options : `-si <section_id>` or `--se
 To download media and transcripts only on all item in selected course section just specify full option as above
 ```
 # this commands are all equivalents
-./bin/lil.py download --section-id 63 --fmt 360 --transcript-lang id -run
-./bin/lil.py download -si 63 -f 360 -tl id -run
+$ ./bin/lil.py download --section-id 63 --fmt 360 --transcript-lang id -run
+$ ./bin/lil.py download -si 63 -f 360 -tl id -run
 
 ```
 
@@ -328,8 +328,8 @@ To download media and transcripts only on all item in selected course section ju
 Just remove `-tl` or `--transcript-lang` options
 ```
 # this commands are all equivalents
-./bin/lil.py download --section-id 63 --fmt 360 -run
-./bin/lil.py download -si 63 -f 360  -run
+$ ./bin/lil.py download --section-id 63 --fmt 360 -run
+$ ./bin/lil.py download -si 63 -f 360  -run
 
 ```
 
@@ -338,8 +338,8 @@ Just add `-to` or `--transcript-only` options
 
 ```
 # this commands are all equivalents
-./bin/lil.py download --section-id 63 --fmt 360 --transcript-lang id --transcript-only -run
-./bin/lil.py download -si 63 -f 360 -to -run
+$ ./bin/lil.py download --section-id 63 --fmt 360 --transcript-lang id --transcript-only -run
+$ ./bin/lil.py download -si 63 -f 360 -to -run
 
 ```
 
@@ -347,12 +347,12 @@ Just add `-to` or `--transcript-only` options
 To download media and transcripts required options : `-ti <toc_id>` or `--toc-id <toc_id>`,  `-f <media_format>` or `--fmt <media_format>` , `-tl <country_id>` or `--transcript-lang <country_id>` then the last option is `-run` or `--run` to run the cli download manager
 ```
 # media and transcript
-./bin/lil.py download --toc-id 343 --fmt 360 --transcript-lang id -run
-./bin/lil.py download -ti 343 -f 360 -tl id -run
+$ ./bin/lil.py download --toc-id 343 --fmt 360 --transcript-lang id -run
+$ ./bin/lil.py download -ti 343 -f 360 -tl id -run
 
 # transcript only
-./bin/lil.py download --toc-id 343 --fmt 360 --transcript-lang id --transcript-only -run
-./bin/lil.py download -ti 343 -f 360 -tl id -to -run
+$ ./bin/lil.py download --toc-id 343 --fmt 360 --transcript-lang id --transcript-only -run
+$ ./bin/lil.py download -ti 343 -f 360 -tl id -to -run
 ```
 
 ## 6.1 Stream current media on selected course toc via pipe with ffplay
@@ -360,7 +360,20 @@ To download media and transcripts required options : `-ti <toc_id>` or `--toc-id
 You can play media on selected course toc via pipe by adding `-stp` or `--stream-to-pipe`. Remember you have already installed ffplay and add it on your system PATH
 
 ```
-./lil.py download --toc-id 23 --fmt 640 --stream-to-pipe -run|ffplay -i pipe:
-/lil.py download -ti 23 -f 640 -stp -run|ffplay -i pipe:
+$ ./bin/lil.py download --toc-id 23 --fmt 640 
+$ --stream-to-pipe -run|ffplay -i pipe:
+./bin/lil.py download -ti 23 -f 640 -stp -run|ffplay -i pipe:
 
 ```
+
+# 7. Troubleshooting
+
+Sometimes you will get and download errors `401` , and this indicate the current download url has expired, so you need to refresh all the download links by using this command `./bin/lil.py download -i <course_id> -rsl` or `./bin/lil.py download --id <course_id> --refresh-stream-location`
+
+```
+$ ./bin/liy.py download -i 1 -rsl
+$ ./bin/lil.py download --id 1 --refresh-stream-location
+```
+
+# LICENSE
+MIT LICENSE
