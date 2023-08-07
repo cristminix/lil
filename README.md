@@ -226,12 +226,18 @@ With suplied course_id options will display course details which includes course
 ### 4.1. Downloading all assets in selected course
 Downloading all assets means download all media streams transcripts or subtitles and playlist for all toc in current course sections. To achive this you need to specify required options : `-i <course_id>` or `--id <course_id>`, `-f <media_format>` or `--fmt <media_format>`, `-tl <country_id>` or `--transcript-lang <country_id>` , `-w a` or `-w all` or `--what a` or `--what all` then the last option is `-run` or `--run` to run the cli download manager
 
+To enable numbering on download output filename you can add option `-en` or `--enable-numbering`
+
 ```bash
 # this commands are all equivalents
 $ ./bin/lil.py download -i 9 -f 720 -tl us -w a -run
 $ ./bin/lil.py download -i 9 -f 720 -tl us -w all -run
 $ ./bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what a --run
 $ ./bin/lil.py download --id 9 --fmt 720 --transcript-lang us --what all --run
+# enable numbering
+$ ./bin/lil.py download -i 9 -f 720 -tl us -w all -en -run
+$ ./bin/lil.py download -i 9 -f 720 -tl us -w all --enable-numbering -run
+
 ```
 
 ### 4.2. Download playlist only

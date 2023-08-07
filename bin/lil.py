@@ -36,6 +36,7 @@ def main():
     download_parser.add_argument("-rsl","--refresh-stream-location",action='store_true', help="Refresh stream location")
     download_parser.add_argument("-stp","--stream-to-pipe",action='store_true', help="Stream the video output to pipe")
     download_parser.add_argument("-run","--run", action='store_true',help="Run download manager")
+    download_parser.add_argument("-en","--enable-numbering", action='store_true',help="Enable Numbering on output filename")
 
     
     media_server_parser = subparsers.add_parser("media-server", help="Start local media server")

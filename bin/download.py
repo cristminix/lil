@@ -36,6 +36,7 @@ def download(args):
     stream_to_pipe=getAttr(args,'stream_to_pipe')
     refresh_stream_location=getAttr(args,'refresh_stream_location')
     what=getAttr(args,'what')
+    enable_numbering=getAttr(args,'enable_numbering')
 
     ds = DataSource(db_path)
     api_course=CourseApi(ds)
@@ -84,7 +85,7 @@ def download(args):
             #     errors("You must specify -f|--fmt, example -f 720", exit_progs=True)
             # # if what == "pl" or what == 'playlist':
 
-            download_what(ds, api_course, course_id, fmt, transcript_lang, what)
+            download_what(ds, api_course, course_id, fmt, transcript_lang, what, enable_numbering)
             # pass
         # if download_mode == "transcript_mode":
         #     log('Download in transcript mode')

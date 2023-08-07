@@ -8,7 +8,7 @@ import urllib
 from robots.fn import writeFile,errors, log, lang, RED,GREEN,BLUE,RESET,BLACK,WHITE
 from api.course import CourseApi, isLinkedinLearningUrl,isTimeExpired,downloadFile,getDownloadDir
 
-def download_what(ds, api_course, course_id, fmt, transcript_lang, what):
+def download_what(ds, api_course, course_id, fmt, transcript_lang, what, enable_numbering=False):
     is_ex_mode = what == 'ex' or what == 'exercise_file' or what == 'exercise'
     if not is_ex_mode:
         print(f"Selected fmt: {fmt}")
@@ -119,6 +119,8 @@ def download_what(ds, api_course, course_id, fmt, transcript_lang, what):
     download_playlist = 'playlist' in what_to_downloads
     
     playlist_buffer = ""
+    index_number=""
+    toc_number=0
     if download_playlist:
         playlist_buffer = "#EXTM3U\n";
     for section in sections:
@@ -127,12 +129,15 @@ def download_what(ds, api_course, course_id, fmt, transcript_lang, what):
             errors(f"Section with id: {section.id} doesnt have toc records")
             continue
 
-        toc_number=1
+        # toc_number=1
         
         
         for toc in tocs:
+            toc_number += 1
+            if enable_numbering:
+                index_number="%02d-" % toc_number
             if download_playlist:
-                media_filename = f"{toc.slug}-{fmt}.mp4"
+                media_filename = f"{index_number}{toc.slug}-{fmt}.mp4"
                 media_filename_encoded = urllib.parse.quote(media_filename)
                 playlist_buffer += f"#EXTINF:{toc.duration},{media_filename}\n"
                 playlist_buffer += media_filename_encoded + "\n"
@@ -158,7 +163,7 @@ def download_what(ds, api_course, course_id, fmt, transcript_lang, what):
                             transcripts = api_course.getTranscripts(toc,refresh=True)
                         skip=False
                         download_dir = getDownloadDir(course.slug)
-                        media_output_filename = f"{download_dir}/{toc.slug}-{fmt}.vtt"
+                        media_output_filename = f"{download_dir}/{index_number}{toc.slug}-{fmt}.vtt"
                         mo_rel_path = os.path.relpath(media_output_filename, os.path.dirname(__file__))
                         if os.path.exists(media_output_filename) and retry_count == 0:
                             print(f"{mo_rel_path} already exists")
@@ -208,7 +213,7 @@ def download_what(ds, api_course, course_id, fmt, transcript_lang, what):
 
                         skip=False
                         download_dir = getDownloadDir(course.slug)
-                        media_output_filename = f"{download_dir}/{toc.slug}-{fmt}.mp4"
+                        media_output_filename = f"{download_dir}/{index_number}{toc.slug}-{fmt}.mp4"
                         mo_rel_path = os.path.relpath(media_output_filename, os.path.dirname(__file__))
                         if os.path.exists(media_output_filename) and retry_count == 0:
                             print(f"{mo_rel_path} already exists")
