@@ -94,6 +94,6 @@ class Form:
         self.last_resp=resp
 
         log(lang('form_post_resp_code',resp.status_code),verbose=True)
-        
-        writeResp(resp, "%s_form" % (self.name), 1)
+        browser_cache_dir=self.human.browser_cache_dir
+        writeResp(resp, "%s_form" % (self.name), 1, browser_cache_dir)
         return resp.text

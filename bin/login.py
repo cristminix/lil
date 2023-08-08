@@ -38,7 +38,8 @@ def login():
     ######################################################
     # human try to browse linkedin learning website
     content = human.browse(linkedin_learning_url, 'linkedin_learning_homepage')
-
+    # if not login_type:
+    #     login_type="library"
     # human try to guess page by name
     if human.guessPage('unauthenticated_page',content):
         log(lang("you_are_not_login"),'info')
@@ -50,7 +51,7 @@ def login():
         elif login_type == "browser_cookie":
             already_loged_in = login_browser_cookie.login(human, db_config)
         else:
-            errors(f"Invalid login type", exit_progs=True)
+            errors(f"Invalid login type:{login_type}", exit_progs=True)
 
     elif human.guessPage('authenticated_page',content):
         log(lang("you_are_loged_in"),'info')

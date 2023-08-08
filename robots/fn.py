@@ -388,7 +388,7 @@ def inputAction(default_login_type,human,json_config):
         sys.exit()
 
     else:
-        login_type=choice
+        login_type=default_login_type
 
     return login_type
 
@@ -433,7 +433,7 @@ def writeResp(resp, page_name, index,browser_cache_dir=None):
     if config.write_resp_text:
         path = "%s-%s.html" % (page_name, index)
         if not browser_cache_dir:
-            browser_cache_dir = "html_cache"
+            browser_cache_dir = "browser_cache"
         path = "%s/%s" % (browser_cache_dir,path )
         writeFile(path,resp.text.replace('</head>','<title>%s</title></head>' % (resp.url)))
 
@@ -459,6 +459,8 @@ def clearCookies(path="cookies.json"):
         return False
     
 def loadCookies(session, path="cookies.json"):
+    if not os.path.exists(path):
+        writeFile(path,"{}")
     try:
         cookies = json.loads(Path(path).read_text())  # save them to file as JSON
         cookies = requests.utils.cookiejar_from_dict(cookies)  # turn dict to cookiejar
