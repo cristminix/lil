@@ -17,13 +17,17 @@ def course(args):
     course_list = ds.m_course.getList()
     # print(course_list)
     if not course_id:
-        
-        print("\nList of saved courses:\n")
-        for course in course_list:
-            by_authors=[]
-            for author in course.authors:
-                by_authors.append(author.name)
-            print(f"  {course.id}. {course.title}  By {','.join(by_authors)}")
+        if not course_list:
+            print("\nThere is no saved courses")
+            print("You can run lil.py fetch <course_url> to save course metadata\n")
+
+        else:
+            print("\nList of saved courses:\n")
+            for course in course_list:
+                by_authors=[]
+                for author in course.authors:
+                    by_authors.append(author.name)
+                print(f"  {course.id}. {course.title}  By {','.join(by_authors)}")
         print("\n")
     else:
         course = ds.m_course.get(course_id)

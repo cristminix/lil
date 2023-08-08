@@ -93,23 +93,27 @@ def download(args):
         sys.exit()
     # print(course_list)
     if not course_id:
-        print("\nList of saved courses:\n")
-        for course in course_list:
-            by_authors=[]
-            for author in course.authors:
-                by_authors.append(author.name)
-            sloc_fmt = ds.m_course.getAvailableStreamFmt(course.id)
-            # print(sloc_fmt)   
-            trans_lang = ds.m_course.getAvailableTransLang(course.id)
-            # print(trans_lang)    
-            print(f"  [{GREEN}i{RESET}:{RED}{course.id}{RESET}]. {course.title} By {','.join(by_authors)}")
-            print(f"     Available fmt [{GREEN}f{RESET}:{RED}{','.join(sloc_fmt)}{RESET}]")
-            print(f"     Available transcript lang [{GREEN}tl{RESET}:{RED}{','.join(trans_lang)}{RESET}]\n")
-        # print("\n")
-        print("  description:\n")
-        print(f"    {GREEN}i{RESET}  : {RED}Course id{RESET}")
-        print(f"    {GREEN}f{RESET}  : {RED}Media format{RESET}")
-        print(f"    {GREEN}tl{RESET} : {RED}Transcript lang{RESET}\n")
+        if not course_list:
+            print("\nThere is no saved courses\n")
+            print("You can run lil.py fetch <course_url> to save course metadata\n")
+        else:
+            print("\nList of saved courses:\n")
+            for course in course_list:
+                by_authors=[]
+                for author in course.authors:
+                    by_authors.append(author.name)
+                sloc_fmt = ds.m_course.getAvailableStreamFmt(course.id)
+                # print(sloc_fmt)   
+                trans_lang = ds.m_course.getAvailableTransLang(course.id)
+                # print(trans_lang)    
+                print(f"  [{GREEN}i{RESET}:{RED}{course.id}{RESET}]. {course.title} By {','.join(by_authors)}")
+                print(f"     Available fmt [{GREEN}f{RESET}:{RED}{','.join(sloc_fmt)}{RESET}]")
+                print(f"     Available transcript lang [{GREEN}tl{RESET}:{RED}{','.join(trans_lang)}{RESET}]\n")
+            # print("\n")
+            print("  description:\n")
+            print(f"    {GREEN}i{RESET}  : {RED}Course id{RESET}")
+            print(f"    {GREEN}f{RESET}  : {RED}Media format{RESET}")
+            print(f"    {GREEN}tl{RESET} : {RED}Transcript lang{RESET}\n")
     else:
         
         course = ds.m_course.get(course_id)
