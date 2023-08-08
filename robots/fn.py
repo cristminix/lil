@@ -482,7 +482,7 @@ def pq(html):
         try:
             pq_obj=pquery(html)
         except Exception as exception:
-            errors(lang("pquery_error", path),exception) 
+            errors(lang("pquery_error"),exception) 
             pq_obj = dummyFn
     return pq_obj
 
