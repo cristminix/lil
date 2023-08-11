@@ -32,7 +32,7 @@ def fetch(args):
     api_course=CourseApi(ds)
 
     course_slug = api_course.getCourseSlugFromUrl(course_url)
-    course = api_course.getCourseInfo(course_slug)
+    course = api_course.getCourseInfo(course_slug,refresh=True)
 
     if course:
         print(f"Fetch course ok")

@@ -1,5 +1,5 @@
 from robots.browser import Browser
-from robots.fn import log,lang,writeResp, clearCookies
+from robots.fn import log,lang,writeResp, clearCookies, errors
 import sys
 import time
 class Human:
@@ -62,6 +62,7 @@ class Human:
             resp= self.browser.get(url)
 
             if resp.status_code != 200:
+                log(f"status_code:{resp.status_code}")
                 retry_count += 1
                 wait_time += 1
                 
