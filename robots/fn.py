@@ -417,7 +417,7 @@ def lang(key, data=None):
 def writeFile(path,content,mode="w"):
     rel_path = os.path.relpath(path, os.getcwd())
     try:
-        with open(path, mode) as file:
+        with open(path, mode, encoding="utf-8") as file:
             file.write(content)
             
             
@@ -494,12 +494,17 @@ def waitForCaptcha(json_config, last_run_timeout_max=7):
     last_run_dt = datetime.fromtimestamp(json_config.get('last_run_timestamp'))
     last_run_rest = current_dt - last_run_dt
     last_run_timeout = math.ceil(last_run_rest.total_seconds())
-    
+    if last_run_timeout < 0:
+        last_run_timeout = 0
     need_to_wait = last_run_timeout < last_run_timeout_max
     sleep_timeout = last_run_timeout_max - last_run_timeout
 
     if sleep_timeout < 0:
         sleep_timeout = 0
+
+    # print (last_run_timeout)
+    # print (sleep_timeout)
+    # print (last_run_timeout_max)
     
     need_to_wait_message= ""
 
