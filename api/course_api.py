@@ -192,8 +192,14 @@ class CourseApi:
         if course:
             rec=self.m_course.create(course["title"], course["slug"], course["duration"], course["sourceCodeRepository"], course["description"], course["urn"],update=refresh)
             if course["exerciseFiles"]:
-                sizeInBytes,name,url,=course["exerciseFiles"].values()
-                self.m_exercise_file.create(name=name,size=sizeInBytes,url=url,courseId=rec.id, update=refresh)
+                try:
+                    sizeInBytes,name,url=course["exerciseFiles"].values()
+                    self.m_exercise_file.create(name=name,size=sizeInBytes,url=url,courseId=rec.id, update=refresh)
+                except Exception as e:
+                    print(course["exerciseFiles"])
+                    if not 'url' in course["exerciseFiles"]:
+                        errors(f"Exercise file doesnt have url")
+                    errors('Failed to extract exercise file',e)
             course=rec
         else:
             self.m_prx.deleteByPageName(self.prx.getPageName())

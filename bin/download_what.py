@@ -56,7 +56,7 @@ def download_what(ds, api_course, course_id, fmt, transcript_lang, what, enable_
 
     if 'exercise_file' in what_to_downloads:
         exercise_file = ds.m_exercise_file.getByCourseId(course_id)
-        # print(exercise_file)
+        print(exercise_file)
         if not exercise_file:
             errors(f"Course id: {course_id} doesnt have exercise file")
         else:
@@ -79,6 +79,11 @@ def download_what(ds, api_course, course_id, fmt, transcript_lang, what, enable_
                     exercise_file = ds.m_exercise_file.getByCourseId(course_id)
                 
                 skip=False
+                if not exercise_file:
+                    skip=True
+                    ok=True
+                    errors('exercise_file is empty')
+                    break
                 exercise_file_output_filename = f"{download_dir}/{exercise_file.name}"
                 ex_rel_path = os.path.relpath(exercise_file_output_filename, os.path.dirname(__file__))
                 
