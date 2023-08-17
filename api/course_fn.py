@@ -43,6 +43,23 @@ def downloadPipe(url,human=None):
             # db.session.commit()
             sys.stdout.buffer.write(data)
 
+def getAvgSpeed(value, array_length=10, integer_array=[], last_index=0):
+    if last_index >= array_length-1:
+        last_index = 0
+
+    # print(last_index)
+
+    if len(integer_array) == array_length:
+        integer_array[last_index]=value
+    else:
+        integer_array.append(value)
+    
+    # Calculate the average
+    average = sum(integer_array) / len(integer_array)
+    last_index += 1
+    return [average, array_length, integer_array, last_index]
+
+
 def downloadFileWithResume(url,output_filename,human=None):
     mo_rel_path = os.path.relpath(output_filename, f"{os.path.dirname(__file__)}/../../")
 
@@ -76,12 +93,23 @@ def downloadFileWithResume(url,output_filename,human=None):
             file_size=total_size_in_bytes
 
             with open(output_filename, 'ab') as file:
+                download_speed = 0
+                
+                average, array_length, integer_array, last_index = getAvgSpeed(download_speed)
+
                 for data in resp.iter_content(block_size):
                     byte_written = len(data)
                     downloaded_size += byte_written
                     elapsed_time = time.time() - start_time
-                    download_speed = byte_written / elapsed_time
-                    print_single_line(f"downloading {formatBytes(downloaded_size)}/{formatBytes(download_speed,True)}")
+                    
+                    try:
+                        download_speed = byte_written / elapsed_time
+                    except Exception as e:
+                        pass
+
+                    average, array_length, integer_array, last_index = getAvgSpeed(download_speed,  array_length, integer_array, last_index)
+
+                    print_single_line(f"downloading {formatBytes(downloaded_size)}/{formatBytes(average,True)}")
                     file.write(data)
                     start_time = time.time()
                 if 'Transfer-Encoding' in resp.headers:
