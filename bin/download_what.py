@@ -56,7 +56,7 @@ def download_what(ds, api_course, course_id, fmt, transcript_lang, what, enable_
 
     if 'exercise_file' in what_to_downloads:
         exercise_file = ds.m_exercise_file.getByCourseId(course_id)
-        print(exercise_file)
+        # print(exercise_file)
         if not exercise_file:
             errors(f"Course id: {course_id} doesnt have exercise file")
         else:
@@ -66,6 +66,7 @@ def download_what(ds, api_course, course_id, fmt, transcript_lang, what, enable_
             retry_count=0
             max_retry_count=3
             refresh_course=False
+            last_choice=None
             while not ok:
                 if wait_time > 0:
                     log(f"wait for {wait_time} seconds")
@@ -89,8 +90,12 @@ def download_what(ds, api_course, course_id, fmt, transcript_lang, what, enable_
                 
                 if os.path.exists(exercise_file_output_filename):
                     print(f"{ex_rel_path} already exists")
-                    choice = input("overwrite ? (y,n)[n]:")
-                    choice = choice.lower()
+                    if not last_choice:
+                        choice = input("overwrite ? (y,n)[n]:")
+                        choice = choice.lower()
+                        last_choice = choice
+                    else:
+                        choice = last_choice
                     if choice != 'y':
                         skip=True
                         ok=True
@@ -157,6 +162,7 @@ def download_what(ds, api_course, course_id, fmt, transcript_lang, what, enable_
                     retry_count=0
                     max_retry_count=3
                     refresh_transcripts=False
+                    last_choice=None
                     while not ok:
                         if wait_time > 0:
                             log(f"wait for {wait_time} seconds")
@@ -172,8 +178,15 @@ def download_what(ds, api_course, course_id, fmt, transcript_lang, what, enable_
                         mo_rel_path = os.path.relpath(media_output_filename, os.path.dirname(__file__))
                         if os.path.exists(media_output_filename) and retry_count == 0:
                             print(f"{mo_rel_path} already exists")
-                            choice = input("overwrite ? (y,n)[n]:")
-                            choice = choice.lower()
+                            if choice != 'y':
+                                skip=True
+                                ok=True
+                            if not last_choice:
+                                choice = input("overwrite ? (y,n)[n]:")
+                                choice = choice.lower()
+                                last_choice = choice
+                            else:
+                                choice = last_choice
                             if choice != 'y':
                                 skip=True
                                 ok=True
@@ -203,6 +216,7 @@ def download_what(ds, api_course, course_id, fmt, transcript_lang, what, enable_
                     retry_count=0
                     max_retry_count=3
                     refresh_stream_locs=False
+                    last_choice=None
                     while not ok:
                         if wait_time > 0:
                             log(f"wait for {wait_time} seconds")
@@ -222,8 +236,12 @@ def download_what(ds, api_course, course_id, fmt, transcript_lang, what, enable_
                         mo_rel_path = os.path.relpath(media_output_filename, os.path.dirname(__file__))
                         if os.path.exists(media_output_filename) and retry_count == 0:
                             print(f"{mo_rel_path} already exists")
-                            choice = input("overwrite ? (y,n)[n]:")
-                            choice = choice.lower()
+                            if not last_choice:
+                                choice = input("overwrite ? (y,n)[n]:")
+                                choice = choice.lower()
+                                last_choice = choice
+                            else:
+                                choice = last_choice
                             if choice != 'y':
                                 skip=True
                                 ok=True
