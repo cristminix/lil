@@ -14,6 +14,19 @@ import sys
 # print(cookie_path)
 # sys.exit()
 
+def is_loged_in():
+    already_loged_in=False
+    ds = DataSource(db_path)
+    db_config = ds.m_config
+    human = Human(cookie_path,browser_cache_dir)
+    human.addPage(unauthenticated_page).addPage(authenticated_page)
+    content = human.browse(linkedin_learning_url, 'linkedin_learning_homepage')
+    if human.guessPage('authenticated_page',content):
+        log(lang("you_are_loged_in"),'info')
+        already_loged_in=True
+    else:
+        log(lang("you_are_not_login"),'info')
+    return already_loged_in
 def login():
     waitForCaptcha(cli_config)
     #######################################################

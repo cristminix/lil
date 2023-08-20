@@ -17,6 +17,7 @@ import time
 from download_section import download_section
 from download_toc import download_toc
 from download_what import download_what
+from login import is_loged_in
 
 def getAttr(obj,key):
     try:
@@ -27,6 +28,9 @@ def getAttr(obj,key):
 
 def download(args):
     # print(args)
+    if not is_loged_in():
+        errors('You must loged in before you can run this download action')
+        sys.exit(1)
     course_id = getAttr(args,'id')
     run = getAttr(args,'run')
     section_id = getAttr(args,'section_id')

@@ -12,9 +12,12 @@ import validators
 import re
 import time
 # from tabulate import tabulate
-
+from login import is_loged_in
 
 def fetch(args):
+    if not is_loged_in():
+        errors('You must loged in before you can run this fetch action')
+        sys.exit(1)
     course_url = args.url
     # if len(sys.argv) < 2:
     #     print("usage   : ./api_test.py <course_url>")
