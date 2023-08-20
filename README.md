@@ -7,6 +7,7 @@ lil stand for Linkedin Learning CLI, linkedin learning course assets downloader 
 # Tested and ready for
 - `Mac Osx intel 10.13.6 +`
 - `Windows 10 +`
+- `Wsl`
 
 For another platform you can try to adopting by using python3 use conventions.
 
