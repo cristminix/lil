@@ -1,6 +1,8 @@
 # lil
 lil stand for Linkedin Learning CLI, linkedin learning course assets downloader by using command line interface.
 
+[![HitCount](https://hits.dwyl.com/cristminix/lil.svg?style=flat&show=unique)](http://hits.dwyl.com/cristminix/lil)
+
 # Requirements
 - `python3` currently `python3.11`
 
