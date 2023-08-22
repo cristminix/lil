@@ -23,7 +23,7 @@
 ```bash
 $ which python
 /c/Python311/python
-$ cp /c/Python311/python /c/Python311/python3
+$ cp /c/Python311/python.exe /c/Python311/python3.exe
 $ pwd
 /d
 $ git clone https://github.com/cristminix/lil
