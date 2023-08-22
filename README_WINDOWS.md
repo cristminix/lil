@@ -23,23 +23,15 @@
 ```bash
 $ which python
 /c/Python311/python
-$ ln -ns /c/Python311/python /c/Python311/python3
+$ cp /c/Python311/python /c/Python311/python3
 $ pwd
-/x/
+/d
 $ git clone https://github.com/cristminix/lil
 $ cd lil
 $ python3 --version
 Python 3.11.4
 $ python3 -m venv .venv
-
-# repair symlink on windows
-$ cd .venv/Scripts
-$ ln -ns python python3
-$ cd -
-$ cd .venv
-$ ln -ns Scripts bin
-$ cd -
-$ source .venv/bin/activate
+$ source .venv/Scripts/activate
 $ pip3 install -r requirement.txt
 $ chmod +x ./bin/lil.py
 $ ./bin/lil.py -h
