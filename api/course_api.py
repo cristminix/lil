@@ -11,7 +11,33 @@ class DictToObject:
         for key, value in dictionary.items():
             setattr(self, key, value)
 
+def closest_parent(el, tag_name):
+    stop=False
+    parent=None
+    while not stop:
+        if not parent:
+            parent=el.parent
+        else:
+            parent=parent.parent
+
+        if not parent:
+            stop=True
+        else:
+            if parent.name == tag_name:
+                return parent
+                stop=True
+    return None
+
+def getEntityUrnEl(el):
+        included_el = closest_parent(el,'included')
+        if included_el:
+            # print(parent)
+            entity_urn_el=included_el.find('entityUrn')
+            if entity_urn_el:
+                print(entity_urn_el.text)
+
 def getVideoMetaNd(v_status_urn, doc):
+    # print(v_status_urn)
     benchmark('getVideoMetaNd','start')
     v_meta_data_nd=None
     # cache = json_config.get(v_status_urn)
@@ -63,6 +89,8 @@ def getVideoMetaNd(v_status_urn, doc):
             el_nd = v_status_lookup.parent 
             # parent_el = el_nd("parent")
             v_meta_data_nd = el_nd.find("presentation")
+            if not v_meta_data_nd:
+                v_meta_data_nd = el_nd.find("presentationDerived")
             pos=0
             if v_meta_data_nd:
                 pos += 1
@@ -77,6 +105,9 @@ def getVideoMetaNd(v_status_urn, doc):
     if not v_meta_data_nd:
         # print(v_status_lookup)
         errors("%s %s" % (lang('could_not_find_v_meta_data_nd_pos'),pos))
+
+        log("Try another method")
+
     b=benchmark('getVideoMetaNd','end')
     print(f"getVideoMetaNd time elapsed:{b['elapsed_time']}\n")  
     return [v_meta_data_nd,statuses]

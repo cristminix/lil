@@ -6,3 +6,4 @@ xmltodict
 validators
 cryptography
 browser_cookie3
+tqdm

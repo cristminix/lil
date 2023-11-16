@@ -440,7 +440,7 @@ def parseJson(code_id,code_nd):
     
     return code_content
 
-def convert2Xml(data, page_name, cache_xml_to_file=False):
+def convert2Xml(data, page_name, cache_xml_to_file=True):
     xml_data = xmltodict.unparse(data, pretty=True)
     xml_data = xml_data.replace('<body','<tbody').replace('</body','</tbody')
     xml_data = xml_data.replace('<$','<').replace('</$','</')
@@ -539,7 +539,7 @@ def getStreamLocations(v_meta_data_nd, doc,toc,m_stream_location):
     return stream_locations
     # return None
 
-def getVideoMeta(v_status_urn, doc, json_config):
+def getVideoMeta(v_status_urn, doc, json_config,default_selector="presentation"):
     benchmark('getVideoMeta','start')
 
     # cache = json_config.get(v_status_urn)
@@ -554,6 +554,7 @@ def getVideoMeta(v_status_urn, doc, json_config):
     # urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3094437)
     v_status_lookups = doc.find_all('star_lyndaVideoViewingStatus',text=v_status_urn)
     # v_status_lookups = doc.find_all('included')
+    print(v_status_lookups)
     status_429 = doc.find_all('status',text="429")
     statuses= doc.find_all('status')
     print(statuses)
@@ -584,13 +585,14 @@ def getVideoMeta(v_status_urn, doc, json_config):
     v_meta_data_nd=None
     pos=-1
     if v_status_lookups:
-        # print(v_status_lookup)
+        
 
         break_the_loop=False
         for v_status_lookup in v_status_lookups:
             el_nd = v_status_lookup.parent 
+
             # parent_el = el_nd("parent")
-            v_meta_data_nd = el_nd.find("presentation")
+            v_meta_data_nd = el_nd.find(default_selector)
             pos=0
             if v_meta_data_nd:
                 pos += 1
