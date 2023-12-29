@@ -246,7 +246,11 @@ def download_what(ds, api_course, course_id, fmt, transcript_lang, what, enable_
                                 skip=True
                                 ok=True
                         if not skip:
-                            url=stream_locs[fmt].url
+                            if fmt in stream_locs:
+                                url=stream_locs[fmt].url
+                            else:
+                                url=stream_locs[max(stream_locs)].url         
+                            
                             status_code = downloadFile(url,media_output_filename)
                             if status_code != 200:
                                 retry_count += 1
